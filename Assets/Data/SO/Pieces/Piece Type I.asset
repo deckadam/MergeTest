@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ab93b813c94bd4b0499105ff013512, type: 3}
+  m_Name: Piece Type I
+  m_EditorClassIdentifier: 
+  blocks:
+  - cellPosition: {x: 0, y: 0}
+    block:
+      IsClosedArea: 0
+      upOccupied: 0
+      downOccupied: 0
+      leftOccupied: 1
+      rightOccupied: 0
+      leftEdge: {fileID: 0}
+      rightEdge: {fileID: 0}
+      upEdge: {fileID: 0}
+      downEdge: {fileID: 0}
+      upperLeftCorner: {fileID: 0}
+      upperRightCorner: {fileID: 0}
+      lowerLeftCorner: {fileID: 0}
+      lowerRightCorner: {fileID: 0}
+      visible: 1
+  pieceRepresentation: {fileID: 6425918563864393620, guid: bcac8db2cdbfab146903606bb4f54ead,
+    type: 3}
+  offset: {x: 0.5, y: 0.5}
