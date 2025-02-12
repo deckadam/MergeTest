@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Piece
 {
@@ -24,17 +25,21 @@ namespace Piece
         [Serializable]
         public class Block
         {
-            [HideInInspector] public bool IsClosedArea;
+            private bool _isClosedArea;
+            public bool IsClosedArea => _isClosedArea;
+
+            public GameObject gemObject;
+            public bool hasGemInIt;
 
             public bool upOccupied;
             public bool downOccupied;
             public bool leftOccupied;
             public bool rightOccupied;
 
-            public GameObject leftEdge;
-            public GameObject rightEdge;
-            public GameObject upEdge;
-            public GameObject downEdge;
+            public SpriteRenderer leftEdge;
+            public SpriteRenderer rightEdge;
+            public SpriteRenderer upEdge;
+            public SpriteRenderer downEdge;
 
             public GameObject upperLeftCorner;
             public GameObject upperRightCorner;
@@ -42,6 +47,64 @@ namespace Piece
             public GameObject lowerRightCorner;
 
             public bool visible = true;
+
+            public void SetClosedArea(bool isClosedArea, Color edgeColor, Color centerColor)
+            {
+                _isClosedArea = isClosedArea;
+
+                if (isClosedArea)
+                {
+                    upEdge.color = centerColor;
+                    downEdge.color = centerColor;
+                    leftEdge.color = centerColor;
+                    rightEdge.color = centerColor;
+                }
+                else
+                {
+                    upEdge.color = edgeColor;
+                    downEdge.color = edgeColor;
+                    leftEdge.color = edgeColor;
+                    rightEdge.color = edgeColor;
+                }
+            }
+
+            private Vector3 _originalUpEdgePosition;
+            private Vector3 _originalDownEdgePosition;
+            private Vector3 _originalLeftEdgePosition;
+            private Vector3 _originalRightEdgePosition;
+
+            private Quaternion _upEdgeOriginalRotation;
+            private Quaternion _downEdgeOriginalRotation;
+            private Quaternion _leftEdgeOriginalRotation;
+            private Quaternion _rightEdgeOriginalRotation;
+
+            public void Initialize()
+            {
+                _originalUpEdgePosition = upEdge.transform.position;
+                _originalDownEdgePosition = downEdge.transform.position;
+                _originalLeftEdgePosition = leftEdge.transform.position;
+                _originalRightEdgePosition = rightEdge.transform.position;
+
+                _upEdgeOriginalRotation = upEdge.transform.rotation;
+                _downEdgeOriginalRotation = downEdge.transform.rotation;
+                _leftEdgeOriginalRotation = leftEdge.transform.rotation;
+                _rightEdgeOriginalRotation = rightEdge.transform.rotation;
+            }
+
+            private static Vector3 _originalScale = new(0.25f, 0.25f, 0.25f);
+
+            public void ResetEdges()
+            {
+                upEdge.transform.SetPositionAndRotation(_originalUpEdgePosition, _upEdgeOriginalRotation);
+                downEdge.transform.SetPositionAndRotation(_originalDownEdgePosition, _downEdgeOriginalRotation);
+                leftEdge.transform.SetPositionAndRotation(_originalLeftEdgePosition, _leftEdgeOriginalRotation);
+                rightEdge.transform.SetPositionAndRotation(_originalRightEdgePosition, _rightEdgeOriginalRotation);
+
+                upEdge.transform.localScale = _originalScale;
+                downEdge.transform.localScale = _originalScale;
+                leftEdge.transform.localScale = _originalScale;
+                rightEdge.transform.localScale = _originalScale;
+            }
 
             public bool IsOverlappingEdges(Block block)
             {
@@ -125,54 +188,6 @@ namespace Piece
                     {
                         upperRightCorner.SetActive(true);
                     }
-                }
-            }
-
-            [Button]
-            public void Test()
-            {
-                if (leftEdge != null)
-                {
-                    leftEdge.SetActive(!leftEdge.activeInHierarchy);
-                }
-
-                if (downEdge != null)
-                {
-                    downEdge.SetActive(!downEdge.activeInHierarchy);
-                }
-
-                if (rightEdge != null)
-                {
-                    rightEdge.SetActive(!rightEdge.activeInHierarchy);
-                }
-
-                if (upEdge != null)
-                {
-                    upEdge.SetActive(!upEdge.activeInHierarchy);
-                }
-            }
-
-            [Button]
-            public void Test2()
-            {
-                if (upperLeftCorner != null)
-                {
-                    upperLeftCorner.SetActive(!upperLeftCorner.activeInHierarchy);
-                }
-
-                if (lowerLeftCorner != null)
-                {
-                    lowerLeftCorner.SetActive(!lowerLeftCorner.activeInHierarchy);
-                }
-
-                if (upperRightCorner != null)
-                {
-                    upperRightCorner.SetActive(!upperRightCorner.activeInHierarchy);
-                }
-
-                if (lowerRightCorner != null)
-                {
-                    lowerRightCorner.SetActive(!lowerRightCorner.activeInHierarchy);
                 }
             }
         }

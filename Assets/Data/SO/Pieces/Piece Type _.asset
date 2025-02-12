@@ -16,22 +16,8 @@ MonoBehaviour:
   - cellPosition: {x: 0, y: 0}
     block:
       IsClosedArea: 0
-      upOccupied: 0
-      downOccupied: 1
-      leftOccupied: 0
-      rightOccupied: 0
-      leftEdge: {fileID: 0}
-      rightEdge: {fileID: 0}
-      upEdge: {fileID: 0}
-      downEdge: {fileID: 0}
-      upperLeftCorner: {fileID: 0}
-      upperRightCorner: {fileID: 0}
-      lowerLeftCorner: {fileID: 0}
-      lowerRightCorner: {fileID: 0}
-      visible: 1
-  - cellPosition: {x: 1, y: 0}
-    block:
-      IsClosedArea: 0
+      gemObject: {fileID: 0}
+      hasGemInIt: 0
       upOccupied: 0
       downOccupied: 1
       leftOccupied: 0

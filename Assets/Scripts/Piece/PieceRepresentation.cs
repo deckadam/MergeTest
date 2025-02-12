@@ -1,14 +1,18 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using GamePlay;
+using MobileHapticsProFreeEdition;
 using UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Piece
 {
     public class PieceRepresentation : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
+        [SerializeField] private AudioClip clickSound;
+        [SerializeField] private AudioClip placedSound;
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private RectTransform pieceVisual;
         [SerializeField] private Vector2 carryOffset;
@@ -17,11 +21,22 @@ namespace Piece
         private RectTransform _parent;
         private Vector2 _rootSize;
         private GameplayGrid _grid;
-        private PiecePickerUI _piecePickerUI;
+        private GamePlayUI _gamePlayUI;
 
-        public async void LoadData(PieceType pieceType, PiecePickerUI piecePickerUI)
+        public async void LoadData(PieceType pieceType, GamePlayUI gamePlayUI, Color color)
         {
-            _piecePickerUI = piecePickerUI;
+            var images = GetComponentsInChildren<Image>();
+            foreach (var image in images)
+            {
+                if (image.gameObject == gameObject)
+                {
+                    continue;
+                }
+
+                image.color = color;
+            }
+
+            _gamePlayUI = gamePlayUI;
             await UniTask.NextFrame();
             _pieceType = pieceType;
             _parent = transform.parent as RectTransform;
@@ -31,8 +46,15 @@ namespace Piece
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (!GameplayLevel.CanTakeInput)
+            {
+                return;
+            }
+
+            AndroidTapticWave.Haptic(HapticModes.Select);
             _tokenSource = new CancellationTokenSource();
             Drag();
+            AudioManager.instance.PlayAudio(clickSound);
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -53,14 +75,6 @@ namespace Piece
                 var result = await UniTask.NextFrame(_tokenSource.Token).SuppressCancellationThrow();
                 if (result)
                 {
-                    rectTransform.SetParent(_parent);
-
-                    rectTransform.anchorMin = Vector2.one / 2f;
-                    rectTransform.anchorMax = Vector2.one / 2f;
-
-                    rectTransform.anchoredPosition = Vector2.zero;
-                    pieceVisual.anchoredPosition = Vector2.zero;
-
                     if (!TryToPlace())
                     {
                         if (_grid != null)
@@ -70,12 +84,26 @@ namespace Piece
                     }
                     else
                     {
+                        AndroidTapticWave.Haptic(HapticModes.Confirm);
+                        AudioManager.instance.PlayAudio(placedSound);
+
                         Destroy(gameObject);
 
                         await UniTask.NextFrame();
-                        _piecePickerUI.OnPiecePicked(_pieceType);
+                        _gamePlayUI.OnPiecePicked(_pieceType);
                         _grid.IsBoardLocked();
+                        return;
                     }
+
+                    rectTransform.SetParent(_parent);
+
+                    rectTransform.anchorMin = Vector2.one / 2f;
+                    rectTransform.anchorMax = Vector2.one / 2f;
+
+                    rectTransform.anchoredPosition = Vector2.zero;
+                    pieceVisual.anchoredPosition = Vector2.zero;
+
+                    AndroidTapticWave.Haptic(HapticModes.Alert);
 
 
                     _tokenSource?.Dispose();

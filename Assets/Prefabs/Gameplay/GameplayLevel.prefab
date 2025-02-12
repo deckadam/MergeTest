@@ -171,7 +171,7 @@ MonoBehaviour:
   m_ZDamping: 0
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.5
+  m_ScreenY: 0.45
   m_CameraDistance: 10
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
@@ -334,16 +334,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4210e3a9954aa1942bc7e4af61b195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellCreatedSound: {fileID: 8300000, guid: 5400d14754e47224186189d85e79da40, type: 3}
   gridRenderer: {fileID: 7636055813545781375}
   filledCenterPrefab: {fileID: 85418411045581716, guid: 535384f81dae65b468a828ce906b57cd,
     type: 3}
-  edgePrefab: {fileID: 1507347027299220540, guid: dcc88ab626a1fc94ebf367175feec8c8,
+  edgePrefab: {fileID: 5563518535460178919, guid: dcc88ab626a1fc94ebf367175feec8c8,
     type: 3}
   cornerPrefab: {fileID: 1483824141254330099, guid: c9a797781bfbc6745abc485a6def4968,
+    type: 3}
+  gemPrefab: {fileID: 2516652601101578408, guid: d1b7ccbb0da9085488963974299b68e4,
     type: 3}
   _blocks:
     m_Keys: []
     m_Values: []
+  blastParticle: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55,
+    type: 3}
 --- !u!1 &6850847121539697131
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +375,7 @@ Transform:
   m_GameObject: {fileID: 6850847121539697131}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -1.0000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -462,5 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a4e92af7314371a76c458667a5d3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  successSound: {fileID: 8300000, guid: a3983ed16e03bc64fb90e7f30143ac7c, type: 3}
+  failSound: {fileID: 8300000, guid: 94beaaa34f3e1204f8c29bf353b17383, type: 3}
   grid: {fileID: 2647332365377553670}
   gCamera: {fileID: 7038992152209455140}

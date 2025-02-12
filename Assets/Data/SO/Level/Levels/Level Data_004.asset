@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211d11d67fc84c119f210305e94aa875, type: 3}
+  m_Name: Level Data_004
+  m_EditorClassIdentifier: 
+  gridSize: {x: 8, y: 8}
+  availablePieces:
+  - {fileID: 11400000, guid: dd886fdea6311a74ab2df730eda54dfd, type: 2}
+  - {fileID: 11400000, guid: 94dbd22a57869de4684cae8004995dbd, type: 2}
+  - {fileID: 11400000, guid: bec33e6c615194c48bc827b3d0804fb0, type: 2}
+  - {fileID: 11400000, guid: a940ad454cd06014caaa765b5df8df1f, type: 2}
+  - {fileID: 11400000, guid: 291c900d81761a4459624d89e7d6aa72, type: 2}
+  - {fileID: 11400000, guid: b6a750d2c6d396448afba19b55508dff, type: 2}
+  - {fileID: 11400000, guid: c1d701960a1212842b2a0c7e3fd37da4, type: 2}
+  - {fileID: 11400000, guid: bec33e6c615194c48bc827b3d0804fb0, type: 2}
+  - {fileID: 11400000, guid: bec33e6c615194c48bc827b3d0804fb0, type: 2}
+  - {fileID: 11400000, guid: dd886fdea6311a74ab2df730eda54dfd, type: 2}
+  - {fileID: 11400000, guid: 94dbd22a57869de4684cae8004995dbd, type: 2}
+  - {fileID: 11400000, guid: fb6eaad582232f342a74f9510b13dbf9, type: 2}
+  - {fileID: 11400000, guid: dcd5dc907593df446896292d48e0deac, type: 2}
+  - {fileID: 11400000, guid: ad36b1a4c2eb6ff439f57378eaea6317, type: 2}
+  - {fileID: 11400000, guid: 9e345ca44d95f9440afc04e63e5ee8b7, type: 2}
+  gemCountRange: {x: 3, y: 5}
+  bgColor: {r: 0.44761896, g: 0, b: 1, a: 1}
+  levelColor: {r: 0.7111173, g: 0.24056602, b: 1, a: 1}
+  edgeColor: {r: 0.25943398, g: 0.68014985, b: 1, a: 1}
+  centerColor: {r: 1, g: 0.33725488, b: 0.77325803, a: 1}
+  bottomColor: {r: 0, g: 0.63857055, b: 1, a: 1}
+  topColor: {r: 0.5347996, g: 0, b: 1, a: 1}
+  requiredGemCount: 1

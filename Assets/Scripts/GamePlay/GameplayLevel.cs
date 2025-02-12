@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Data;
 using UI;
 using UnityEngine;
@@ -7,22 +8,30 @@ namespace GamePlay
 {
     public class GameplayLevel : MonoBehaviour
     {
+        public static bool CanTakeInput;
+        [SerializeField] private AudioClip successSound;
+        [SerializeField] private AudioClip failSound;
         [SerializeField] private GameplayGrid grid;
         [SerializeField] private GameplayCamera gCamera;
 
-        private PiecePickerUI _piecePickerUI;
+        private GamePlayUI _gamePlayUI;
         private LevelData _levelData;
+        private NextLevelUI _nextLevelUI;
+        private ReloadUI _reloadUI;
 
         [Inject]
-        private void Inject(PiecePickerUI piecePickerUI)
+        private void Inject(GamePlayUI gamePlayUI, NextLevelUI nextLevelUI, ReloadUI reloadUI)
         {
-            _piecePickerUI = piecePickerUI;
+            _gamePlayUI = gamePlayUI;
+            _nextLevelUI = nextLevelUI;
+            _reloadUI = reloadUI;
         }
 
         public void Initialize(LevelData levelData)
         {
+            CanTakeInput = true;
             _levelData = levelData;
-            grid.Initialize(levelData);
+            grid.Initialize(levelData, this);
             gCamera.Initialize(levelData.GridSize);
 
             LoadDeck();
@@ -30,7 +39,22 @@ namespace GamePlay
 
         private void LoadDeck()
         {
-            _piecePickerUI.Initialize(_levelData.AvailablePieces,grid);
+            _gamePlayUI.Initialize(_levelData, grid);
+        }
+
+        public void OnLevelFinished()
+        {
+            CanTakeInput = false;
+            AudioManager.instance.PlayAudio(successSound);
+            _nextLevelUI.Show();
+        }
+
+        public async void OnLevelFailed()
+        {
+            CanTakeInput = false;
+            await UniTask.Delay(250);
+            AudioManager.instance.PlayAudio(failSound);
+            _reloadUI.Show();
         }
     }
 }
